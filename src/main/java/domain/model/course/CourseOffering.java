@@ -1,9 +1,46 @@
 package domain.model.course;
 
+import domain.model.common.Term;
+import domain.model.register.Student;
 import shared.Entity;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class CourseOffering implements Entity<CourseOffering> {
+    private int classNumber;
+    private Teacher teacher;
+    private TimeSlot classTimeSlot;
+    private TimeSlot examTimeSlot;
+    private Date examDate;
+    private ArrayList<DayOfWeek> weekdays;
+    private int capacity;
+    private ArrayList<Student> attendees;
+    private Term term;
+
+    public CourseOffering(int classNumber, Teacher teacher, TimeSlot classTimeSlot,
+                          TimeSlot examTimeSlot, Date examDate, ArrayList<DayOfWeek> weekdays,
+                          int capacity, Term term) {
+        this.classNumber = classNumber;
+        this.teacher = teacher;
+        this.classTimeSlot = classTimeSlot;
+        this.examTimeSlot = examTimeSlot;
+        this.examDate = examDate;
+        this.weekdays = weekdays;
+        this.capacity = capacity;
+        this.term = term;
+        this.attendees = new ArrayList<>();
+    }
+
     public boolean sameIdentityAs(CourseOffering other) {
-        return false;
+        return this.classNumber == other.classNumber &&
+        this.teacher.sameIdentityAs(other.teacher) &&
+        this.classTimeSlot.sameValueAs(other.classTimeSlot) &&
+        this.examTimeSlot.sameValueAs(other.examTimeSlot) &&
+        this.examDate.equals(other.examDate) &&
+        this.weekdays.equals(other.weekdays) &&
+        this.capacity == other.capacity &&
+        this.term.sameValueAs(other.term);
     }
 }

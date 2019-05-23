@@ -22,11 +22,11 @@ public class Student extends Person {
     public ArrayList<Course> getPassedCourses(){
         ArrayList<Course> passedCourses = new ArrayList<>();
         for(Registration registration: this.finishedRegistrations)
-            passedCourses.addAll(registration.getPassedReceivedCourses());
+            passedCourses.addAll(registration.getPassedAndTakenCourses());
         return passedCourses;
     }
 
     public ArrayList<Course> getCurrentCourses(){
-        return new ArrayList<>(currentRegistration.getPassedReceivedCourses());
+        return new ArrayList<>(currentRegistration.getPassedAndTakenCourses());
     }
 }

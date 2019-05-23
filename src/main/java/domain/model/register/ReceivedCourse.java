@@ -33,8 +33,12 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
     public boolean sameValueAs(ReceivedCourse other) {
         return this.courseOffering.sameIdentityAs(other.courseOffering) && this.state.equals(other.state);
     }
-    public boolean passed(){
+    public boolean isPassed() {
         return this.state.equals(CourseState.PASSED);
+    }
+
+    public boolean isTaken() {
+        return this.state.equals(CourseState.TAKEN);
     }
 
     public Course getCourse() {

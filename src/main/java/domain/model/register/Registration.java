@@ -15,6 +15,6 @@ public class Registration implements Entity<Registration> {
     }
 
     public boolean sameIdentityAs(Registration other) {
-        return this.receivedCourses.equals(other.receivedCourses) && this.term.equals(other.term);
+        return this.receivedCourses.equals(other.receivedCourses) && this.term.sameValueAs(other.term);
     }
 }

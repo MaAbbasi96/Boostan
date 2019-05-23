@@ -1,4 +1,4 @@
 package domain.model.register.exception;
 
-public class NotGradedCourseException extends Exception {
+abstract public class NotGradedCourseException extends Exception {
 }

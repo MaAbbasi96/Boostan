@@ -3,6 +3,7 @@ package domain.model.register;
 import domain.model.course.CourseOffering;
 import domain.model.register.exception.DeletedCourseException;
 import domain.model.register.exception.NotGradedCourseException;
+import domain.model.register.exception.TakenCourseException;
 import shared.ValueObject;
 
 public class ReceivedCourse implements ValueObject<ReceivedCourse> {
@@ -16,11 +17,11 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
         this.state = state;
     }
 
-    public float getScore() throws Exception{
+    public float getScore() throws NotGradedCourseException {
         if (this.state.equals(CourseState.DELETED))
             throw new DeletedCourseException();
         else if (this.state.equals(CourseState.TAKEN))
-            throw new NotGradedCourseException();
+            throw new TakenCourseException();
         return score;
     }
 

@@ -20,10 +20,10 @@ public class Registration implements Entity<Registration> {
     }
 
     public ArrayList<Course> getPassedReceivedCourses() {
-        ArrayList<Course> PassedReceivedCourses = new ArrayList<>();
+        ArrayList<Course> passedReceivedCourses = new ArrayList<>();
         for(ReceivedCourse receivedCourse: this.receivedCourses)
             if(receivedCourse.passed())
-                PassedReceivedCourses.add(receivedCourse.getCourse());
-        return PassedReceivedCourses;
+                passedReceivedCourses.add(receivedCourse.getCourse());
+        return passedReceivedCourses;
     }
 }

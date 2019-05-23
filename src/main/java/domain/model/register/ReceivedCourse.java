@@ -1,5 +1,6 @@
 package domain.model.register;
 
+import domain.model.course.Course;
 import domain.model.course.CourseOffering;
 import domain.model.register.exception.DeletedCourseException;
 import domain.model.register.exception.NotGradedCourseException;
@@ -31,5 +32,12 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
 
     public boolean sameValueAs(ReceivedCourse other) {
         return this.course.sameIdentityAs(other.course) && this.state.equals(other.state);
+    }
+    public boolean passed(){
+        return this.state.equals(CourseState.PASSED);
+    }
+
+    public Course getCourse() {
+        return course.getCourse();
     }
 }

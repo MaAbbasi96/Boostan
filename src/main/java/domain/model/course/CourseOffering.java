@@ -46,4 +46,8 @@ public class CourseOffering implements Entity<CourseOffering> {
                 this.term.sameValueAs(other.term) &&
                 this.course.sameValueAs(other.course);
     }
+
+    public Course getCourse() {
+        return course;
+    }
 }

@@ -11,10 +11,10 @@ public class Student extends Person {
     private ArrayList<Registration> registrations;
     private Term firstTerm;
 
-    public Student(Name name, String nationalCode, String id, Date birthDate, ArrayList<Registration> registrations,
-                   Term firstTerm) {
+    public Student(Name name, String nationalCode, String id, Date birthDate,
+                   ArrayList<Registration> registrations, Term firstTerm) {
         super(name, nationalCode, id, birthDate);
-        this.registrations = registrations;
+        this.registrations = new ArrayList<>();
         this.firstTerm = firstTerm;
     }
 }

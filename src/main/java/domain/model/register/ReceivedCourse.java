@@ -1,5 +1,6 @@
 package domain.model.register;
 
+import domain.model.course.Course;
 import domain.model.course.CourseOffering;
 import domain.model.register.exception.DeletedCourseException;
 import domain.model.register.exception.NotGradedCourseException;
@@ -8,12 +9,12 @@ import shared.ValueObject;
 
 public class ReceivedCourse implements ValueObject<ReceivedCourse> {
     enum CourseState {REJECTED, PASSED, TAKEN, DELETED}
-    private CourseOffering course;
+    private CourseOffering courseOffering;
     private CourseState state;
     private float score;
 
     public ReceivedCourse(CourseOffering course, CourseState state) {
-        this.course = course;
+        this.courseOffering = course;
         this.state = state;
     }
 
@@ -30,6 +31,17 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
     }
 
     public boolean sameValueAs(ReceivedCourse other) {
-        return this.course.sameIdentityAs(other.course) && this.state.equals(other.state);
+        return this.courseOffering.sameIdentityAs(other.courseOffering) && this.state.equals(other.state);
+    }
+    public boolean isPassed() {
+        return this.state.equals(CourseState.PASSED);
+    }
+
+    public boolean isTaken() {
+        return this.state.equals(CourseState.TAKEN);
+    }
+
+    public Course getCourse() {
+        return this.courseOffering.getCourse();
     }
 }

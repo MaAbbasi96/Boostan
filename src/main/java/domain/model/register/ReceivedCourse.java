@@ -13,9 +13,9 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
     private CourseState state;
     private float score;
 
-    public ReceivedCourse(CourseOffering course, CourseState state) {
+    public ReceivedCourse(CourseOffering course) {
         this.courseOffering = course;
-        this.state = state;
+        this.state = CourseState.TAKEN;
     }
 
     public float getScore() throws NotGradedCourseException {

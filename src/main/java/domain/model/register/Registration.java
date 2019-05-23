@@ -2,6 +2,7 @@ package domain.model.register;
 
 import domain.model.common.Term;
 import domain.model.course.Course;
+import domain.model.course.CourseOffering;
 import shared.Entity;
 
 import java.util.ArrayList;
@@ -25,5 +26,9 @@ public class Registration implements Entity<Registration> {
             if(receivedCourse.isPassed() || receivedCourse.isTaken())
                 passedReceivedCourses.add(receivedCourse.getCourse());
         return passedReceivedCourses;
+    }
+
+    public void receiveCourse(CourseOffering courseOffering) {
+        receivedCourses.add(new ReceivedCourse(courseOffering));
     }
 }

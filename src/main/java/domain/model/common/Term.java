@@ -6,13 +6,13 @@ public class Term implements ValueObject<Term> {
     private DatePeriod period;
     private DatePeriod registrationPeriod;
     private String name;
-    private static int termNumber = 1;
+    private int termNumber;
 
-    public Term(DatePeriod period, DatePeriod registrationPeriod, String name) {
+    public Term(DatePeriod period, DatePeriod registrationPeriod, String name, int termNumber) {
         this.period = period;
         this.registrationPeriod = registrationPeriod;
         this.name = name;
-        termNumber++;
+        this.termNumber = termNumber;
     }
 
     public boolean sameValueAs(Term other) {

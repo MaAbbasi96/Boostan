@@ -1,6 +1,8 @@
 package domain.model.course;
 
+import domain.model.course.prerequisite.CoursesNeededPrerequisite;
 import domain.model.course.prerequisite.Prerequisite;
+import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import shared.ValueObject;
 
 import java.util.ArrayList;
@@ -23,7 +25,22 @@ public class Course implements ValueObject<Course> {
     public ArrayList<Prerequisite> getPrerequisites() {
         return prerequisites;
     }
+
     public float getTotalNumOfUnits(){
         return this.units.getPractical() + this.units.getTheoretical();
+    }
+
+    public void validatePrerequisites(ArrayList<Course> currentCourses,
+                                      ArrayList<Course> passedCourses)
+            throws PrerequisiteNotSatisfiedException{
+        for (Prerequisite prerequisite: this.prerequisites) {
+            if (prerequisite instanceof CoursesNeededPrerequisite) {
+                ArrayList<Course> totalCourses = new ArrayList<>();
+                totalCourses.addAll(currentCourses);
+                totalCourses.addAll(passedCourses);
+                prerequisite.validate(totalCourses);
+            }
+            else prerequisite.validate(passedCourses);
+        }
     }
 }

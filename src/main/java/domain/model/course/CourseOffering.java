@@ -1,6 +1,7 @@
 package domain.model.course;
 
 import domain.model.common.Term;
+import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import domain.model.register.Student;
 import shared.Entity;
 
@@ -49,5 +50,15 @@ public class CourseOffering implements Entity<CourseOffering> {
 
     public Course getCourse() {
         return this.course;
+    }
+
+    public void validatePrerequisites(ArrayList<Course> currentCourses,
+                                      ArrayList<Course> passedCourses)
+            throws PrerequisiteNotSatisfiedException {
+        this.course.validatePrerequisites(currentCourses, passedCourses);
+    }
+
+    public void addAttendee(Student student) {
+        this.attendees.add(student);
     }
 }

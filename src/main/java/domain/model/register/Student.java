@@ -4,6 +4,7 @@ import domain.model.common.Name;
 import domain.model.common.Person;
 import domain.model.common.Term;
 import domain.model.course.Course;
+import domain.model.course.CourseOffering;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,5 +29,9 @@ public class Student extends Person {
 
     public ArrayList<Course> getCurrentCourses(){
         return new ArrayList<>(currentRegistration.getPassedAndTakenCourses());
+    }
+
+    public void receiveCourse(CourseOffering courseOffering) {
+        this.currentRegistration.receiveCourse(courseOffering);
     }
 }

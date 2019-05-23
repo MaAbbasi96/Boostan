@@ -14,7 +14,7 @@ public class Student extends Person {
     public Student(Name name, String nationalCode, String id, Date birthDate, ArrayList<Registration> registrations,
                    Term firstTerm) {
         super(name, nationalCode, id, birthDate);
-        this.registrations = registrations;
+        this.registrations = new ArrayList<>();
         this.firstTerm = firstTerm;
     }
 }

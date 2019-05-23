@@ -1,4 +1,4 @@
 package domain.model.register.state;
 
-public class TakenCourseState {
+public class TakenCourseState extends NotGradedCourseState{
 }

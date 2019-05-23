@@ -18,10 +18,11 @@ public class CourseOffering implements Entity<CourseOffering> {
     private int capacity;
     private ArrayList<Student> attendees;
     private Term term;
+    private Course course;
 
     public CourseOffering(int classNumber, Teacher teacher, TimeSlot classTimeSlot,
                           TimeSlot examTimeSlot, Date examDate, ArrayList<DayOfWeek> weekdays,
-                          int capacity, Term term) {
+                          int capacity, Term term, Course course) {
         this.classNumber = classNumber;
         this.teacher = teacher;
         this.classTimeSlot = classTimeSlot;
@@ -30,17 +31,19 @@ public class CourseOffering implements Entity<CourseOffering> {
         this.weekdays = weekdays;
         this.capacity = capacity;
         this.term = term;
+        this.course = course;
         this.attendees = new ArrayList<>();
     }
 
     public boolean sameIdentityAs(CourseOffering other) {
         return this.classNumber == other.classNumber &&
-        this.teacher.sameIdentityAs(other.teacher) &&
-        this.classTimeSlot.sameValueAs(other.classTimeSlot) &&
-        this.examTimeSlot.sameValueAs(other.examTimeSlot) &&
-        this.examDate.equals(other.examDate) &&
-        this.weekdays.equals(other.weekdays) &&
-        this.capacity == other.capacity &&
-        this.term.sameValueAs(other.term);
+                this.teacher.sameIdentityAs(other.teacher) &&
+                this.classTimeSlot.sameValueAs(other.classTimeSlot) &&
+                this.examTimeSlot.sameValueAs(other.examTimeSlot) &&
+                this.examDate.equals(other.examDate) &&
+                this.weekdays.equals(other.weekdays) &&
+                this.capacity == other.capacity &&
+                this.term.sameValueAs(other.term) &&
+                this.course.sameValueAs(other.course);
     }
 }

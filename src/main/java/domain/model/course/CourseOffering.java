@@ -48,6 +48,6 @@ public class CourseOffering implements Entity<CourseOffering> {
     }
 
     public Course getCourse() {
-        return course;
+        return this.course;
     }
 }

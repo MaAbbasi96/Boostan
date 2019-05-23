@@ -42,6 +42,6 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
     }
 
     public Course getCourse() {
-        return courseOffering.getCourse();
+        return this.courseOffering.getCourse();
     }
 }

@@ -23,7 +23,7 @@ public class Course implements ValueObject<Course> {
     public ArrayList<Prerequisite> getPrerequisites() {
         return prerequisites;
     }
-    public int getSumOfNumsOfUnits(){
+    public int getTotalNumsOfUnits(){
         return (int) (this.units.getPractical() + this.units.getTheoretical());
     }
 }

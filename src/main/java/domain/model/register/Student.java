@@ -1,4 +1,9 @@
 package domain.model.register;
 
-public class Student {
+import domain.model.common.Person;
+
+public class Student extends Person {
+    public boolean sameIdentityAs(Person other) {
+        return false;
+    }
 }

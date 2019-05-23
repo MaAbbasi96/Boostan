@@ -1,4 +1,9 @@
 package domain.model.course;
 
-public class Course {
+import shared.ValueObject;
+
+public class Course implements ValueObject<Course> {
+    public boolean sameValueAs(Course other) {
+        return false;
+    }
 }

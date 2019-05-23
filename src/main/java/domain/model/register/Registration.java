@@ -1,4 +1,9 @@
 package domain.model.register;
 
-public class Registration {
+import shared.Entity;
+
+public class Registration implements Entity {
+    public boolean sameIdentityAs(Object other) {
+        return false;
+    }
 }

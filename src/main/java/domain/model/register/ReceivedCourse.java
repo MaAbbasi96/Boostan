@@ -1,4 +1,9 @@
 package domain.model.register;
 
-public class ReceivedCourse {
+import shared.ValueObject;
+
+public class ReceivedCourse implements ValueObject<ReceivedCourse> {
+    public boolean sameValueAs(ReceivedCourse other) {
+        return false;
+    }
 }

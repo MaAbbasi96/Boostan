@@ -1,4 +1,14 @@
 package domain.model.course.prerequisite;
 
-public class CoursePrerequisite {
+import domain.model.course.Course;
+import java.util.ArrayList;
+
+
+abstract public class CoursePrerequisite implements Prerequisite{
+    protected ArrayList<Course> courses;
+
+    public CoursePrerequisite(ArrayList<Course> courses) {
+        this.courses = courses;
+    }
+
 }

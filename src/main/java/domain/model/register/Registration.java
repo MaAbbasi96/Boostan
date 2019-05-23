@@ -15,6 +15,6 @@ public class Registration implements Entity<Registration> {
     }
 
     public boolean sameIdentityAs(Registration other) {
-        return false;
+        return false; // todo: implement if needed
     }
 }

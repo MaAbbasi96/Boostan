@@ -7,23 +7,21 @@ import java.util.ArrayList;
 
 
 public class NumOfCoursesPassedPrerquisite implements Prerequisite {
-    private int threshold;
+    private float threshold;
 
     public NumOfCoursesPassedPrerquisite(int threshold) {
         this.threshold = threshold;
     }
 
-    @Override
     public void validate(ArrayList<Course> courses) throws PrerequisiteNotSatisfiedException {
-        int numOfUnits = countCoursesPassed(courses);
-        if(this.threshold > numOfUnits)
+        if(this.threshold > this.countCoursesPassed(courses))
             throw new NumOfCoursesPassedPrerequisiteNotSatisfiedException();
     }
 
     private int countCoursesPassed(ArrayList<Course> courses){
         int count = 0;
         for(Course course: courses)
-            count += course.getSumOfNumsOfUnits();
+            count += course.getTotalNumOfUnits();
         return count;
     }
 }

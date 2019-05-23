@@ -9,10 +9,11 @@ import java.util.ArrayList;
 public class NumOfCoursesPassedPrerquisite implements Prerequisite {
     private float threshold;
 
-    public NumOfCoursesPassedPrerquisite(int threshold) {
+    public NumOfCoursesPassedPrerquisite(float threshold) {
         this.threshold = threshold;
     }
 
+    @Override
     public void validate(ArrayList<Course> courses) throws PrerequisiteNotSatisfiedException {
         if(this.threshold > this.countCoursesPassed(courses))
             throw new NumOfCoursesPassedPrerequisiteNotSatisfiedException();

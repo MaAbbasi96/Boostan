@@ -14,9 +14,9 @@ public class CoursesPassedPrerequisite extends CoursePrerequisite{
     }
 
     @Override
-    public void validate(ArrayList<Course> courses) throws PrerequisiteNotSatisfiedException {
-        for(Course course: courses)
-            if(!this.courses.contains(course))
+    public void validate(ArrayList<Course> passedCourses) throws PrerequisiteNotSatisfiedException {
+        for(Course passedCourse: passedCourses)
+            if(!this.courses.contains(passedCourse))
                 throw new CoursesPassedPrerequisiteNotSatisfiedException();
     }
 

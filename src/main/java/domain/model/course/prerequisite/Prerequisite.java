@@ -6,5 +6,5 @@ import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedExcept
 import java.util.ArrayList;
 
 public interface Prerequisite {
-    public void validate(ArrayList<Course> courses) throws PrerequisiteNotSatisfiedException;
+    void validate(ArrayList<Course> courses) throws PrerequisiteNotSatisfiedException;
 }

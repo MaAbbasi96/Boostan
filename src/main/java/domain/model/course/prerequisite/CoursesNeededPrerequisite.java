@@ -7,15 +7,14 @@ import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedExcept
 import java.util.ArrayList;
 
 public class CoursesNeededPrerequisite extends CoursePrerequisite {
-
     public CoursesNeededPrerequisite(ArrayList<Course> courses) {
         super(courses);
     }
 
     @Override
-    public void validate(ArrayList<Course> courses) throws PrerequisiteNotSatisfiedException {
-        for(Course course: courses)
-            if(!this.courses.contains(course))
+    public void validate(ArrayList<Course> neededCourses) throws PrerequisiteNotSatisfiedException {
+        for(Course neededCourse: neededCourses)
+            if(!this.courses.contains(neededCourse))
                 throw new CoursesNeededPrerequisiteNotSatisfiedException();
     }
 }

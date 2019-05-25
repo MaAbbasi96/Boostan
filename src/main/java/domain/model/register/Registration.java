@@ -36,8 +36,7 @@ public class Registration implements Entity<Registration> {
     }
 
     public void deleteCourse(CourseOffering courseOffering) throws CanNotDeleteStudentCourseException {
-        float numberOfUnit = getCurrentNumberOfUnits();
-        if (numberOfUnit < 12)
+        if (getCurrentNumberOfUnits() < 12)
             throw new NumberOfUnitsBelowMinimumExceptionStudent();
         this.receivedCourses.remove(findReceivedCourse(courseOffering));
     }

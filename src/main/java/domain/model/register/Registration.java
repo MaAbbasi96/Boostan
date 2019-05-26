@@ -41,11 +41,11 @@ public class Registration implements Entity<Registration> {
         this.receivedCourses.remove(findReceivedCourse(courseOffering));
     }
 
-    private ReceivedCourse findReceivedCourse(CourseOffering courseOffering)
+    private int findReceivedCourse(CourseOffering courseOffering)
             throws CourseNotTakenException {
-        for (ReceivedCourse receivedCourse: this.receivedCourses)
-            if (receivedCourse.getCourseOffering().sameIdentityAs(courseOffering))
-                return receivedCourse;
+        for (int i = 0; i < this.receivedCourses.size(); i++)
+            if (this.receivedCourses.get(i).getCourseOffering().sameIdentityAs(courseOffering))
+                return i;
         throw new CourseNotTakenException();
     }
 

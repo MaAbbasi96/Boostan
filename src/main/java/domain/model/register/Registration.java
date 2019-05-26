@@ -3,9 +3,7 @@ package domain.model.register;
 import domain.model.common.Term;
 import domain.model.course.Course;
 import domain.model.course.CourseOffering;
-import domain.model.register.exception.NotDeleteStudentCourseException;
-import domain.model.register.exception.CourseNotTakenException;
-import domain.model.register.exception.NumberOfUnitsBelowMinimumExceptionStudent;
+import domain.model.register.exception.*;
 import shared.Entity;
 
 import java.util.ArrayList;
@@ -54,5 +52,26 @@ public class Registration implements Entity<Registration> {
         for (ReceivedCourse receivedCourse: this.receivedCourses)
             numberOfUnit += receivedCourse.getTotalNumberOfUnits();
         return numberOfUnit;
+    }
+
+    public void validateConditions(CourseOffering courseOffering)
+            throws ConflictClassTimeException, DuplicateOfferingCourseException {
+        validateGpa(courseOffering);
+        validateTimeConflict(courseOffering);
+        validateDuplicateCourse(courseOffering);
+        validateCourseOfferingCapacity(courseOffering);
+        validateIntershipConflict(courseOffering);
+    }
+
+    private void validateDuplicateCourse(CourseOffering courseOffering)
+            throws DuplicateOfferingCourseException {
+        for (ReceivedCourse receivedCourse: this.receivedCourses)
+            receivedCourse.validateDuplicateOfferingCourse(courseOffering);
+    }
+
+    private void validateTimeConflict(CourseOffering courseOffering)
+            throws ConflictClassTimeException {
+        for (ReceivedCourse receivedCourse: this.receivedCourses)
+            receivedCourse.validateTimeConflict(courseOffering);
     }
 }

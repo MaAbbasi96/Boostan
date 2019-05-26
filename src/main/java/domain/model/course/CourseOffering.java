@@ -68,14 +68,6 @@ public class CourseOffering implements Entity<CourseOffering> {
     }
 
     public void deleteAttendee(Student student) throws StudentNotAttendException {
-        this.attendees.remove(findAttenderStudent(student));
-    }
-
-    private Student findAttenderStudent(Student attenderStudent)
-            throws StudentNotAttendException {
-        for (Student student: this.attendees)
-            if (student.sameIdentityAs(attenderStudent))
-                return student;
-        throw new StudentNotAttendException();
+        this.attendees.remove(student);
     }
 }

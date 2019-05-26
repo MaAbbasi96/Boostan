@@ -2,8 +2,10 @@ package domain.service;
 
 import domain.model.course.Course;
 import domain.model.course.CourseOffering;
+import domain.model.course.exception.StudentNotAttendException;
 import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import domain.model.register.Student;
+import domain.model.register.exception.NotDeleteStudentCourseException;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,9 @@ public class CourseManagerService {
         courseOffering.addAttendee(student);
     }
 
-    public void removeCourse(Student student, CourseOffering courseOffering) {
-        //todo: implement
+    public void removeCourse(Student student, CourseOffering courseOffering)
+            throws NotDeleteStudentCourseException, StudentNotAttendException {
+        student.deleteCourse(courseOffering);
+        courseOffering.deleteAttendee(student);
     }
 }

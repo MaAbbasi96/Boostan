@@ -3,6 +3,9 @@ package domain.model.register;
 import domain.model.common.Term;
 import domain.model.course.Course;
 import domain.model.course.CourseOffering;
+import domain.model.register.exception.NotDeleteStudentCourseException;
+import domain.model.register.exception.CourseNotTakenException;
+import domain.model.register.exception.NumberOfUnitsBelowMinimumExceptionStudent;
 import shared.Entity;
 
 import java.util.ArrayList;
@@ -30,5 +33,26 @@ public class Registration implements Entity<Registration> {
 
     public void receiveCourse(CourseOffering courseOffering) {
         receivedCourses.add(new ReceivedCourse(courseOffering));
+    }
+
+    public void deleteCourse(CourseOffering courseOffering) throws NotDeleteStudentCourseException {
+        if (getCurrentNumberOfUnits() < 12)
+            throw new NumberOfUnitsBelowMinimumExceptionStudent();
+        this.receivedCourses.remove(findReceivedCourse(courseOffering));
+    }
+
+    private int findReceivedCourse(CourseOffering courseOffering)
+            throws CourseNotTakenException {
+        for (int i = 0; i < this.receivedCourses.size(); i++)
+            if (this.receivedCourses.get(i).getCourseOffering().sameIdentityAs(courseOffering))
+                return i;
+        throw new CourseNotTakenException();
+    }
+
+    private float getCurrentNumberOfUnits() {
+        float numberOfUnit = 0;
+        for (ReceivedCourse receivedCourse: this.receivedCourses)
+            numberOfUnit += receivedCourse.getTotalNumberOfUnits();
+        return numberOfUnit;
     }
 }

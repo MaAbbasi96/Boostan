@@ -16,4 +16,12 @@ public class TimeSlot implements ValueObject<TimeSlot> {
     public boolean sameValueAs(TimeSlot other) {
         return this.start.equals(other.start) && this.end.equals(other.end);
     }
+
+    public Time getStart() {
+        return start;
+    }
+
+    public Time getEnd() {
+        return end;
+    }
 }

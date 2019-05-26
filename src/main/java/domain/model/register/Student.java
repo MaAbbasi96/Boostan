@@ -39,4 +39,12 @@ public class Student extends Person {
     public void deleteCourse(CourseOffering courseOffering) throws NotDeleteStudentCourseException {
         this.currentRegistration.deleteCourse(courseOffering);
     }
+
+    @Override
+    public boolean equals(Object other){
+        if (!(other instanceof Student))
+            return false;
+        return this.sameIdentityAs((Person) other);
+    }
+
 }

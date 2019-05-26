@@ -5,7 +5,7 @@ import domain.model.common.Person;
 import domain.model.common.Term;
 import domain.model.course.Course;
 import domain.model.course.CourseOffering;
-import domain.model.register.exception.CanNotDeleteStudentCourseException;
+import domain.model.register.exception.NotDeleteStudentCourseException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +36,7 @@ public class Student extends Person {
         this.currentRegistration.receiveCourse(courseOffering);
     }
 
-    public void deleteCourse(CourseOffering courseOffering) throws CanNotDeleteStudentCourseException {
+    public void deleteCourse(CourseOffering courseOffering) throws NotDeleteStudentCourseException {
         this.currentRegistration.deleteCourse(courseOffering);
     }
 }

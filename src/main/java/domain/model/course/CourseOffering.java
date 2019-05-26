@@ -1,7 +1,7 @@
 package domain.model.course;
 
 import domain.model.common.Term;
-import domain.model.course.exception.StudentDoesNotExistInAttendees;
+import domain.model.course.exception.StudentNotAttendException;
 import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import domain.model.register.Student;
 import shared.Entity;
@@ -67,15 +67,15 @@ public class CourseOffering implements Entity<CourseOffering> {
         return this.course.getTotalNumOfUnits();
     }
 
-    public void deleteAttendee(Student student) throws StudentDoesNotExistInAttendees {
+    public void deleteAttendee(Student student) throws StudentNotAttendException {
         this.attendees.remove(findAttenderStudent(student));
     }
 
     private Student findAttenderStudent(Student attenderStudent)
-            throws StudentDoesNotExistInAttendees {
+            throws StudentNotAttendException {
         for (Student student: this.attendees)
             if (student.sameIdentityAs(attenderStudent))
                 return student;
-        throw new StudentDoesNotExistInAttendees();
+        throw new StudentNotAttendException();
     }
 }

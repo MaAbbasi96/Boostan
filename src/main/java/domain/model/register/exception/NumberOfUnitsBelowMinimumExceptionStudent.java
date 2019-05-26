@@ -1,4 +1,4 @@
 package domain.model.register.exception;
 
-public class NumberOfUnitsBelowMinimumExceptionStudent extends CanNotDeleteStudentCourseException {
+public class NumberOfUnitsBelowMinimumExceptionStudent extends NotDeleteStudentCourseException {
 }

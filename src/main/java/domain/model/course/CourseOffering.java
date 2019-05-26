@@ -6,6 +6,7 @@ import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedExcept
 import domain.model.register.Student;
 import shared.Entity;
 
+import java.sql.Time;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,31 @@ public class CourseOffering implements Entity<CourseOffering> {
     private TimeSlot classTimeSlot;
     private TimeSlot examTimeSlot;
     private Date examDate;
+
+    public Time getClassStartTimeSlot() {
+        return classTimeSlot.getStart();
+    }
+
+    public Time getClassEndTimeSlot() {
+        return classTimeSlot.getEnd();
+    }
+
+    public Time getExamStartTimeSlot() {
+        return examTimeSlot.getStart();
+    }
+
+    public Time getExamEndTimeSlot() {
+        return examTimeSlot.getEnd();
+    }
+
+    public Date getExamDate() {
+        return examDate;
+    }
+
+    public ArrayList<DayOfWeek> getWeekdays() {
+        return weekdays;
+    }
+
     private ArrayList<DayOfWeek> weekdays;
     private int capacity;
     private ArrayList<Student> attendees;

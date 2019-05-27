@@ -6,6 +6,11 @@ import domain.model.register.exception.*;
 import shared.ValueObject;
 
 import java.sql.Time;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static domain.model.utility.Utility.timeHasConflict;
 
 public class ReceivedCourse implements ValueObject<ReceivedCourse> {
     enum CourseState {REJECTED, PASSED, TAKEN, DELETED}
@@ -54,18 +59,34 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
         return this.courseOffering;
     }
 
-    public void validateTimeConflict(CourseOffering courseOffering)
+    public void validateClassTimeConflict(CourseOffering courseOffering)
             throws ConflictClassTimeException {
         Time classStartTime = this.courseOffering.getClassStartTimeSlot();
         Time classEndTime = this.courseOffering.getClassEndTimeSlot();
+        ArrayList<DayOfWeek> classDaysOfWeek = this.courseOffering.getWeekdays();
+
         Time newClassStartTime = courseOffering.getClassStartTimeSlot();
         Time newClassEndTime = courseOffering.getClassEndTimeSlot();
+        ArrayList<DayOfWeek> newClassDaysOfWeek = courseOffering.getWeekdays();
 
-        if ((newClassStartTime.after(classStartTime) && newClassStartTime.before(classEndTime)) ||
-            (newClassEndTime.after(classStartTime) && newClassEndTime.before(classEndTime)) ||
-            (classStartTime.after(newClassStartTime) && classStartTime.before(newClassEndTime)))
-            throw new ConflictClassTimeException();
+        timeHasConflict(classStartTime, classEndTime, classDaysOfWeek, newClassStartTime,
+                newClassEndTime, newClassDaysOfWeek);
     }
+
+    public void validateExamTimeConflict(CourseOffering courseOffering)
+            throws ConflictExamTimeException {
+        Time classStartTime = this.courseOffering.getExamStartTimeSlot();
+        Time classEndTime = this.courseOffering.getExamEndTimeSlot();
+        Date ExamDate = this.courseOffering.getExamDate();
+
+        Time newClassStartTime = courseOffering.getExamStartTimeSlot();
+        Time newClassEndTime = courseOffering.getExamEndTimeSlot();
+        Date newExamDate  = courseOffering.getExamDate();
+
+        timeHasConflict(classStartTime, classEndTime, ExamDate, newClassStartTime,
+                newClassEndTime, newExamDate);
+    }
+
 
     public void validateDuplicateOfferingCourse(CourseOffering courseOffering)
             throws DuplicateOfferingCourseException {

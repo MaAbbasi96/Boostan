@@ -40,11 +40,22 @@ public class Student extends Person {
         this.currentRegistration.deleteCourse(courseOffering);
     }
 
+    public void validateConditions(CourseOffering courseOffering) {
+        this.currentRegistration.validateConditions(courseOffering, this.calculateTermGpa());
+    }
+
+    private float calculateTermGpa(){
+        Registration lastTermRegistration =
+                this.finishedRegistrations.get(this.finishedRegistrations.size()-1);
+        return lastTermRegistration.getGpa();
+    }
+
     @Override
     public boolean equals(Object other){
         if (!(other instanceof Student))
             return false;
         return this.sameIdentityAs((Person) other);
     }
+
 
 }

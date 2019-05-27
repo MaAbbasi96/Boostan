@@ -21,6 +21,7 @@ public class CourseManagerService {
         ArrayList<Course> passedCourses = student.getPassedCourses();
         ArrayList<Course> currentCourses = student.getCurrentCourses();
         courseOffering.validatePrerequisites(passedCourses, currentCourses);
+        student.validateConditions(courseOffering);
         student.receiveCourse(courseOffering);
         courseOffering.addAttendee(student);
     }

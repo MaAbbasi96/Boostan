@@ -17,6 +17,11 @@ public class CourseOffering implements Entity<CourseOffering> {
     private TimeSlot classTimeSlot;
     private TimeSlot examTimeSlot;
     private Date examDate;
+    private ArrayList<DayOfWeek> weekdays;
+    private int capacity;
+    private ArrayList<Student> attendees;
+    private Term term;
+    private Course course;
 
     public Time getClassStartTimeSlot() {
         return classTimeSlot.getStart();
@@ -41,12 +46,6 @@ public class CourseOffering implements Entity<CourseOffering> {
     public ArrayList<DayOfWeek> getWeekdays() {
         return weekdays;
     }
-
-    private ArrayList<DayOfWeek> weekdays;
-    private int capacity;
-    private ArrayList<Student> attendees;
-    private Term term;
-    private Course course;
 
     public CourseOffering(int classNumber, Teacher teacher, TimeSlot classTimeSlot,
                           TimeSlot examTimeSlot, Date examDate, ArrayList<DayOfWeek> weekdays,
@@ -95,5 +94,10 @@ public class CourseOffering implements Entity<CourseOffering> {
 
     public void deleteAttendee(Student student) throws StudentNotAttendException {
         this.attendees.remove(student);
+    }
+
+    public void validateCourseOfferingCapacity() {
+        if (this.capacity == 0)
+            throw new ClassCapacityIsFullException();
     }
 }

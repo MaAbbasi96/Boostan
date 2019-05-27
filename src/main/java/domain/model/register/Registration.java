@@ -54,13 +54,31 @@ public class Registration implements Entity<Registration> {
         return numberOfUnit;
     }
 
-    public void validateConditions(CourseOffering courseOffering)
-            throws ConflictClassTimeException, DuplicateOfferingCourseException {
-        validateGpa(courseOffering);
-        validateTimeConflict(courseOffering);
+    public void validateConditions(CourseOffering courseOffering, float lastTermGpa)
+            throws ConflictTimeException, DuplicateOfferingCourseException,
+            MaximumNumberOfUnitsException {
+        validateGpa(courseOffering, lastTermGpa);
+        validateClassTimeConflict(courseOffering);
+        validateExamTimeConflict(courseOffering);
         validateDuplicateCourse(courseOffering);
         validateCourseOfferingCapacity(courseOffering);
         validateIntershipConflict(courseOffering);
+    }
+
+    private void validateCourseOfferingCapacity(CourseOffering courseOffering) {
+        courseOffering.validateCourseOfferingCapacity();
+    }
+
+    private void validateGpa(CourseOffering courseOffering, float lastTermGpa)
+            throws MaximumNumberOfUnitsException {
+        if (lastTermGpa < 12 && this.getNumOfUnits()+courseOffering.getTotalNumberOfUnits() > 14)
+            throw new MaximumNumberOfUnitsDropoedStudentException();
+        else if (lastTermGpa < 17 &&
+                this.getNumOfUnits()+courseOffering.getTotalNumberOfUnits() > 20)
+            throw new MaximumNumberOfUnitsUsualStudentException();
+        else if (lastTermGpa >= 17 &&
+                this.getNumOfUnits()+courseOffering.getTotalNumberOfUnits() > 24)
+            throw new MaximumNumberOfUnitsTopStudentException();
     }
 
     private void validateDuplicateCourse(CourseOffering courseOffering)
@@ -69,9 +87,39 @@ public class Registration implements Entity<Registration> {
             receivedCourse.validateDuplicateOfferingCourse(courseOffering);
     }
 
-    private void validateTimeConflict(CourseOffering courseOffering)
+    private void validateClassTimeConflict(CourseOffering courseOffering)
             throws ConflictClassTimeException {
         for (ReceivedCourse receivedCourse: this.receivedCourses)
-            receivedCourse.validateTimeConflict(courseOffering);
+            receivedCourse.validateClassTimeConflict(courseOffering);
     }
+
+    private void validateExamTimeConflict(CourseOffering courseOffering)
+            throws ConflictExamTimeException {
+        for (ReceivedCourse receivedCourse: this.receivedCourses)
+            receivedCourse.validateExamTimeConflict(courseOffering);
+    }
+
+    private float getNumOfUnits() {
+        float numOfUnits = 0;
+        for (ReceivedCourse receivedCourse: this.receivedCourses)
+            numOfUnits += receivedCourse.getTotalNumberOfUnits();
+        return numOfUnits;
+    }
+
+    private float getSumOfScores() {
+        float sumOfScores = 0;
+        for (ReceivedCourse receivedCourse: this.receivedCourses) {
+            try {
+                sumOfScores += receivedCourse.getScore();
+            } catch (NotGradedCourseException e) {
+                // todo
+            }
+        }
+        return sumOfScores;
+    }
+
+    public float getGpa() {
+        return this.getSumOfScores() / this.getNumOfUnits();
+    }
+
 }

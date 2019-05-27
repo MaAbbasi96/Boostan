@@ -3,6 +3,7 @@ package domain.model.register;
 import domain.model.common.Term;
 import domain.model.course.Course;
 import domain.model.course.CourseOffering;
+import domain.model.course.exception.ClassCapacityFullException;
 import domain.model.register.exception.*;
 import shared.Entity;
 
@@ -56,7 +57,7 @@ public class Registration implements Entity<Registration> {
 
     public void validateConditions(CourseOffering courseOffering, float lastTermGpa)
             throws ConflictTimeException, DuplicateOfferingCourseException,
-            MaximumNumberOfUnitsException {
+            MaximumNumberOfUnitsException, ClassCapacityFullException {
         validateGpa(courseOffering, lastTermGpa);
         validateClassTimeConflict(courseOffering);
         validateExamTimeConflict(courseOffering);
@@ -65,7 +66,8 @@ public class Registration implements Entity<Registration> {
         validateIntershipConflict(courseOffering);
     }
 
-    private void validateCourseOfferingCapacity(CourseOffering courseOffering) {
+    private void validateCourseOfferingCapacity(CourseOffering courseOffering)
+            throws ClassCapacityFullException {
         courseOffering.validateCourseOfferingCapacity();
     }
 

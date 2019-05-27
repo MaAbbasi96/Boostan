@@ -1,6 +1,7 @@
 package domain.model.course;
 
 import domain.model.common.Term;
+import domain.model.course.exception.ClassCapacityFullException;
 import domain.model.course.exception.StudentNotAttendException;
 import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import domain.model.register.Student;
@@ -96,8 +97,8 @@ public class CourseOffering implements Entity<CourseOffering> {
         this.attendees.remove(student);
     }
 
-    public void validateCourseOfferingCapacity() {
+    public void validateCourseOfferingCapacity() throws ClassCapacityFullException {
         if (this.capacity == 0)
-            throw new ClassCapacityIsFullException();
+            throw new ClassCapacityFullException();
     }
 }

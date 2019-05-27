@@ -57,13 +57,21 @@ public class Registration implements Entity<Registration> {
 
     public void validateConditions(CourseOffering courseOffering, float lastTermGpa)
             throws ConflictTimeException, DuplicateOfferingCourseException,
-            MaximumNumberOfUnitsException, ClassCapacityFullException {
+            MaximumNumberOfUnitsException, ClassCapacityFullException,
+            InternshipTakenWithOtherCoursesException {
         validateGpa(courseOffering, lastTermGpa);
         validateClassTimeConflict(courseOffering);
         validateExamTimeConflict(courseOffering);
         validateDuplicateCourse(courseOffering);
         validateCourseOfferingCapacity(courseOffering);
-        validateIntershipConflict(courseOffering);
+        validateInternshipConflict(courseOffering);
+    }
+
+    private void validateInternshipConflict(CourseOffering courseOffering)
+            throws InternshipTakenWithOtherCoursesException {
+        if (this.getNumOfUnits() > 0 && courseOffering.getCourseName().equals("internship")
+            || this.receivedCourses.get(0).getCourseName().equals("internship"))
+            throw new InternshipTakenWithOtherCoursesException();
     }
 
     private void validateCourseOfferingCapacity(CourseOffering courseOffering)

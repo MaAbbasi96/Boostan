@@ -101,4 +101,8 @@ public class CourseOffering implements Entity<CourseOffering> {
         if (this.capacity == 0)
             throw new ClassCapacityFullException();
     }
+
+    public String getCourseName() {
+        return this.course.getName();
+    }
 }

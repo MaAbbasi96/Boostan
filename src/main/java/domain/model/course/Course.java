@@ -43,4 +43,8 @@ public class Course implements ValueObject<Course> {
             else prerequisite.validate(passedCourses);
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }

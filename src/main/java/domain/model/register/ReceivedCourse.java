@@ -93,4 +93,9 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
         if (this.courseOffering.sameIdentityAs(courseOffering))
             throw new DuplicateOfferingCourseException();
     }
+
+    public String getCourseName() {
+        return this.courseOffering.getCourseName();
+    }
+
 }

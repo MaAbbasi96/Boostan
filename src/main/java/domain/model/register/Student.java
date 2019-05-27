@@ -5,7 +5,9 @@ import domain.model.common.Person;
 import domain.model.common.Term;
 import domain.model.course.Course;
 import domain.model.course.CourseOffering;
+import domain.model.course.exception.ClassCapacityFullException;
 import domain.model.register.exception.NotDeleteStudentCourseException;
+import domain.model.register.exception.courseTakingException.CourseTakingException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,11 +42,23 @@ public class Student extends Person {
         this.currentRegistration.deleteCourse(courseOffering);
     }
 
+    public void validateConditions(CourseOffering courseOffering) throws CourseTakingException,
+            ClassCapacityFullException {
+        this.currentRegistration.validateConditions(courseOffering, this.calculateLastTermGpa());
+    }
+
+    private float calculateLastTermGpa(){
+        Registration lastTermRegistration =
+                this.finishedRegistrations.get(this.finishedRegistrations.size()-1);
+        return lastTermRegistration.getGpa();
+    }
+
     @Override
     public boolean equals(Object other){
         if (!(other instanceof Student))
             return false;
         return this.sameIdentityAs((Person) other);
     }
+
 
 }

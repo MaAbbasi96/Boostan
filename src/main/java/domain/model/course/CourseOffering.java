@@ -1,11 +1,13 @@
 package domain.model.course;
 
 import domain.model.common.Term;
+import domain.model.course.exception.ClassCapacityFullException;
 import domain.model.course.exception.StudentNotAttendException;
 import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import domain.model.register.Student;
 import shared.Entity;
 
+import java.sql.Time;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +23,30 @@ public class CourseOffering implements Entity<CourseOffering> {
     private ArrayList<Student> attendees;
     private Term term;
     private Course course;
+
+    public Time getClassStartTimeSlot() {
+        return classTimeSlot.getStart();
+    }
+
+    public Time getClassEndTimeSlot() {
+        return classTimeSlot.getEnd();
+    }
+
+    public Time getExamStartTimeSlot() {
+        return examTimeSlot.getStart();
+    }
+
+    public Time getExamEndTimeSlot() {
+        return examTimeSlot.getEnd();
+    }
+
+    public Date getExamDate() {
+        return examDate;
+    }
+
+    public ArrayList<DayOfWeek> getWeekdays() {
+        return weekdays;
+    }
 
     public CourseOffering(int classNumber, Teacher teacher, TimeSlot classTimeSlot,
                           TimeSlot examTimeSlot, Date examDate, ArrayList<DayOfWeek> weekdays,
@@ -69,5 +95,14 @@ public class CourseOffering implements Entity<CourseOffering> {
 
     public void deleteAttendee(Student student) throws StudentNotAttendException {
         this.attendees.remove(student);
+    }
+
+    public void validateCourseOfferingCapacity() throws ClassCapacityFullException {
+        if (this.capacity == 0)
+            throw new ClassCapacityFullException();
+    }
+
+    public String getCourseName() {
+        return this.course.getName();
     }
 }

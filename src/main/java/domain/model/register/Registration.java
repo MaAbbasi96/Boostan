@@ -5,6 +5,7 @@ import domain.model.course.Course;
 import domain.model.course.CourseOffering;
 import domain.model.course.exception.ClassCapacityFullException;
 import domain.model.register.exception.*;
+import domain.model.register.exception.courseTakingException.*;
 import shared.Entity;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class Registration implements Entity<Registration> {
 
     public void deleteCourse(CourseOffering courseOffering) throws NotDeleteStudentCourseException {
         if (getCurrentNumberOfUnits() < 12)
-            throw new NumberOfUnitsBelowMinimumExceptionStudent();
+            throw new NumberOfUnitsBelowMinimumException();
         this.receivedCourses.remove(findReceivedCourse(courseOffering));
     }
 
@@ -56,7 +57,7 @@ public class Registration implements Entity<Registration> {
     }
 
     public void validateConditions(CourseOffering courseOffering, float lastTermGpa)
-            throws ConflictTimeException, DuplicateOfferingCourseException,
+            throws ConflictTimeException, DuplicateOfferingCourseTakenException,
             MaximumNumberOfUnitsException, ClassCapacityFullException,
             InternshipTakenWithOtherCoursesException {
         validateGpa(courseOffering, lastTermGpa);
@@ -92,7 +93,7 @@ public class Registration implements Entity<Registration> {
     }
 
     private void validateDuplicateCourse(CourseOffering courseOffering)
-            throws DuplicateOfferingCourseException {
+            throws DuplicateOfferingCourseTakenException {
         for (ReceivedCourse receivedCourse: this.receivedCourses)
             receivedCourse.validateDuplicateOfferingCourse(courseOffering);
     }

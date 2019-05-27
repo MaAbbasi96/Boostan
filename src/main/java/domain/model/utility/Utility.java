@@ -1,7 +1,7 @@
 package domain.model.utility;
 
-import domain.model.register.exception.ConflictClassTimeException;
-import domain.model.register.exception.ConflictExamTimeException;
+import domain.model.register.exception.courseTakingException.ConflictClassTimeException;
+import domain.model.register.exception.courseTakingException.ConflictExamTimeException;
 
 import java.sql.Time;
 import java.time.DayOfWeek;

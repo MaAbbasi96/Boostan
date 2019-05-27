@@ -3,6 +3,9 @@ package domain.model.register;
 import domain.model.course.Course;
 import domain.model.course.CourseOffering;
 import domain.model.register.exception.*;
+import domain.model.register.exception.courseTakingException.ConflictClassTimeException;
+import domain.model.register.exception.courseTakingException.ConflictExamTimeException;
+import domain.model.register.exception.courseTakingException.DuplicateOfferingCourseTakenException;
 import shared.ValueObject;
 
 import java.sql.Time;
@@ -27,7 +30,7 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
         if (this.state.equals(CourseState.DELETED))
             throw new DeletedCourseException();
         else if (this.state.equals(CourseState.TAKEN))
-            throw new TakenCourseException();
+            throw new CurrentTermTakenCourseException();
         return score;
     }
 
@@ -89,9 +92,9 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
 
 
     public void validateDuplicateOfferingCourse(CourseOffering courseOffering)
-            throws DuplicateOfferingCourseException {
+            throws DuplicateOfferingCourseTakenException {
         if (this.courseOffering.sameIdentityAs(courseOffering))
-            throw new DuplicateOfferingCourseException();
+            throw new DuplicateOfferingCourseTakenException();
     }
 
     public String getCourseName() {

@@ -105,4 +105,12 @@ public class CourseOffering implements Entity<CourseOffering> {
     public String getCourseName() {
         return this.course.getName();
     }
+
+    public Term getTerm() {
+        return term;
+    }
+
+    public int getClassNumber() {
+        return classNumber;
+    }
 }

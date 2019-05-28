@@ -59,6 +59,4 @@ public class Student extends Person {
             return false;
         return this.sameIdentityAs((Person) other);
     }
-
-
 }

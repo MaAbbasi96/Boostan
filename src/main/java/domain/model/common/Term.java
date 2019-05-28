@@ -18,4 +18,11 @@ public class Term implements ValueObject<Term> {
     public boolean sameValueAs(Term other) {
         return false;
     }
+
+    @Override
+    public boolean equals(Object other){
+        if (!(other instanceof Term))
+            return false;
+        return this.sameValueAs((Term) other);
+    }
 }

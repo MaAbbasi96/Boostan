@@ -11,9 +11,9 @@ public class CourseRepository {
         return ourInstance;
     }
 
-    ArrayList<Course> courses = new ArrayList<>();
-    ArrayList<CourseOffering> courseOfferings = new ArrayList<>();
-    ArrayList<Teacher> teachers = new ArrayList<>();
+    private ArrayList<Course> courses = new ArrayList<>();
+    private ArrayList<CourseOffering> courseOfferings = new ArrayList<>();
+    private ArrayList<Teacher> teachers = new ArrayList<>();
 
     public Course findCourse(String name) throws DataNotExistInDatabase {
         for (Course course: this.courses)

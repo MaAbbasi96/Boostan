@@ -1,4 +1,4 @@
-package domain.model.course.exception;
+package domain.model.common;
 
 public class DataNotExistInDatabase extends Exception {
 }

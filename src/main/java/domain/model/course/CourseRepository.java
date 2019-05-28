@@ -1,7 +1,7 @@
 package domain.model.course;
 
 import domain.model.common.Term;
-import domain.model.course.exception.DataNotExistInDatabase;
+import domain.model.common.DataNotExistInDatabase;
 
 import java.util.ArrayList;
 

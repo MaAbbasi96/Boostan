@@ -22,4 +22,8 @@ abstract public class Person implements Entity<Person> {
         return this.name.sameValueAs(other.name) && this.nationalCode.equals(other.nationalCode)
                 && this.birthDate.equals(other.birthDate) && this.id.equals(other.id);
     }
+
+    public String getId() {
+        return id;
+    }
 }

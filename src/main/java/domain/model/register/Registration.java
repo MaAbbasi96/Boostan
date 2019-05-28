@@ -123,7 +123,7 @@ public class Registration implements Entity<Registration> {
             try {
                 sumOfScores += receivedCourse.getScore();
             } catch (NotGradedCourseException e) {
-                // todo
+                System.out.println("This course not graded.");
             }
         }
         return sumOfScores;
@@ -133,4 +133,7 @@ public class Registration implements Entity<Registration> {
         return this.getSumOfScores() / this.getNumOfUnits();
     }
 
+    public Term getTerm() {
+        return term;
+    }
 }

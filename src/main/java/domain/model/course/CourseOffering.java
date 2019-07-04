@@ -65,7 +65,7 @@ public class CourseOffering implements Entity<CourseOffering> {
 
     public boolean sameIdentityAs(CourseOffering other) {
         return this.classNumber == other.classNumber &&
-                this.teacher.sameIdentityAs(other.teacher) &&
+                this.teacher.equals(other.teacher) &&
                 this.classTimeSlot.sameValueAs(other.classTimeSlot) &&
                 this.examTimeSlot.sameValueAs(other.examTimeSlot) &&
                 this.examDate.equals(other.examDate) &&

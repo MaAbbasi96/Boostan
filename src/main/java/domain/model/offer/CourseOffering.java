@@ -2,9 +2,9 @@ package domain.model.offer;
 
 import domain.model.common.Term;
 import domain.model.course.Course;
-import domain.model.course.exception.ClassCapacityFullException;
-import domain.model.course.exception.StudentNotAttendException;
-import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
+import domain.model.offer.exception.ClassCapacityFullException;
+import domain.model.offer.exception.StudentNotAttendException;
+import domain.model.educationChart.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import domain.model.register.Student;
 import shared.Entity;
 
@@ -66,7 +66,7 @@ public class CourseOffering implements Entity<CourseOffering> {
 
     public boolean sameIdentityAs(CourseOffering other) {
         return this.classNumber == other.classNumber &&
-                this.teacher.equals(other.teacher) &&
+                this.teacher.sameIdentityAs(other.teacher) &&
                 this.classTimeSlot.sameValueAs(other.classTimeSlot) &&
                 this.examTimeSlot.sameValueAs(other.examTimeSlot) &&
                 this.examDate.equals(other.examDate) &&

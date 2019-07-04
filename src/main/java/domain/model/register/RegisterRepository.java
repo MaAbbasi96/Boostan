@@ -14,7 +14,7 @@ public class RegisterRepository {
 
     private ArrayList<Student> students = new ArrayList<>();
     private ArrayList<AcademicRecord> academicRecords = new ArrayList<>();
-    private ArrayList<EnrolledCourse> enrolledCours = new ArrayList<>();
+    private ArrayList<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
     public Student findStudent(String id) throws DataNotExistInDatabase {
         for (Student student: this.students)
@@ -31,14 +31,14 @@ public class RegisterRepository {
     }
 
     public EnrolledCourse findReceivedCourse(Course course) throws DataNotExistInDatabase {
-        for (EnrolledCourse enrolledCourse : this.enrolledCours)
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
             if (enrolledCourse.getCourse().sameValueAs(course))
                 return enrolledCourse;
         throw new DataNotExistInDatabase();
     }
 
     public void insertReceivedCourse(EnrolledCourse enrolledCourse){
-        this.enrolledCours.add(enrolledCourse);
+        this.enrolledCourses.add(enrolledCourse);
     }
 
 }

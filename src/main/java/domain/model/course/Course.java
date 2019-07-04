@@ -1,8 +1,8 @@
 package domain.model.course;
 
-import domain.model.course.prerequisite.CoursesNeededPrerequisite;
-import domain.model.course.prerequisite.Prerequisite;
-import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
+import domain.model.educationChart.prerequisite.CoursesNeededPrerequisite;
+import domain.model.educationChart.prerequisite.Prerequisite;
+import domain.model.educationChart.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import shared.ValueObject;
 
 import java.util.ArrayList;

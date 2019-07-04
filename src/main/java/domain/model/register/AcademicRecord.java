@@ -3,7 +3,7 @@ package domain.model.register;
 import domain.model.common.Term;
 import domain.model.course.Course;
 import domain.model.offer.CourseOffering;
-import domain.model.course.exception.ClassCapacityFullException;
+import domain.model.offer.exception.ClassCapacityFullException;
 import domain.model.register.exception.*;
 import domain.model.register.exception.courseTakingException.*;
 import shared.Entity;
@@ -11,11 +11,11 @@ import shared.Entity;
 import java.util.ArrayList;
 
 public class AcademicRecord implements Entity<AcademicRecord> {
-    private ArrayList<EnrolledCourse> enrolledCours;
+    private ArrayList<EnrolledCourse> enrolledCourses;
     private Term term;
 
     public AcademicRecord(Term term) {
-        this.enrolledCours = new ArrayList<>();
+        this.enrolledCourses = new ArrayList<>();
         this.term = term;
     }
 
@@ -25,33 +25,33 @@ public class AcademicRecord implements Entity<AcademicRecord> {
 
     public ArrayList<Course> getPassedAndTakenCourses() {
         ArrayList<Course> passedReceivedCourses = new ArrayList<>();
-        for(EnrolledCourse enrolledCourse : this.enrolledCours)
+        for(EnrolledCourse enrolledCourse : this.enrolledCourses)
             if(enrolledCourse.isPassed() || enrolledCourse.isTaken())
                 passedReceivedCourses.add(enrolledCourse.getCourse());
         return passedReceivedCourses;
     }
 
     public void receiveCourse(CourseOffering courseOffering) {
-        enrolledCours.add(new EnrolledCourse(courseOffering));
+        enrolledCourses.add(new EnrolledCourse(courseOffering));
     }
 
     public void deleteCourse(CourseOffering courseOffering) throws NotDeleteStudentCourseException {
         if (getCurrentNumberOfUnits() < 12)
             throw new NumberOfUnitsBelowMinimumException();
-        this.enrolledCours.remove(findReceivedCourse(courseOffering));
+        this.enrolledCourses.remove(findReceivedCourse(courseOffering));
     }
 
     private int findReceivedCourse(CourseOffering courseOffering)
             throws CourseNotTakenException {
-        for (int i = 0; i < this.enrolledCours.size(); i++)
-            if (this.enrolledCours.get(i).getCourseOffering().sameIdentityAs(courseOffering))
+        for (int i = 0; i < this.enrolledCourses.size(); i++)
+            if (this.enrolledCourses.get(i).getCourseOffering().sameIdentityAs(courseOffering))
                 return i;
         throw new CourseNotTakenException();
     }
 
     private float getCurrentNumberOfUnits() {
         float numberOfUnit = 0;
-        for (EnrolledCourse enrolledCourse : this.enrolledCours)
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
             numberOfUnit += enrolledCourse.getTotalNumberOfUnits();
         return numberOfUnit;
     }
@@ -71,7 +71,7 @@ public class AcademicRecord implements Entity<AcademicRecord> {
     private void validateInternshipConflict(CourseOffering courseOffering)
             throws InternshipTakenWithOtherCoursesException {
         if (this.getNumOfUnits() > 0 && courseOffering.getCourseName().equals("internship")
-            || this.enrolledCours.get(0).getCourseName().equals("internship"))
+            || this.enrolledCourses.get(0).getCourseName().equals("internship"))
             throw new InternshipTakenWithOtherCoursesException();
     }
 
@@ -94,32 +94,32 @@ public class AcademicRecord implements Entity<AcademicRecord> {
 
     private void validateDuplicateCourse(CourseOffering courseOffering)
             throws DuplicateOfferingCourseTakenException {
-        for (EnrolledCourse enrolledCourse : this.enrolledCours)
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
             enrolledCourse.validateDuplicateOfferingCourse(courseOffering);
     }
 
     private void validateClassTimeConflict(CourseOffering courseOffering)
             throws ConflictClassTimeException {
-        for (EnrolledCourse enrolledCourse : this.enrolledCours)
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
             enrolledCourse.validateClassTimeConflict(courseOffering);
     }
 
     private void validateExamTimeConflict(CourseOffering courseOffering)
             throws ConflictExamTimeException {
-        for (EnrolledCourse enrolledCourse : this.enrolledCours)
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
             enrolledCourse.validateExamTimeConflict(courseOffering);
     }
 
     private float getNumOfUnits() {
         float numOfUnits = 0;
-        for (EnrolledCourse enrolledCourse : this.enrolledCours)
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
             numOfUnits += enrolledCourse.getTotalNumberOfUnits();
         return numOfUnits;
     }
 
     private float getSumOfScores() {
         float sumOfScores = 0;
-        for (EnrolledCourse enrolledCourse : this.enrolledCours) {
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses) {
             try {
                 sumOfScores += enrolledCourse.getScore();
             } catch (NotGradedCourseException e) {

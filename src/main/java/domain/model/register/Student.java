@@ -5,14 +5,15 @@ import domain.model.common.PersonalInfo;
 import domain.model.common.Term;
 import domain.model.course.Course;
 import domain.model.offer.CourseOffering;
-import domain.model.course.exception.ClassCapacityFullException;
+import domain.model.offer.exception.ClassCapacityFullException;
 import domain.model.register.exception.NotDeleteStudentCourseException;
 import domain.model.register.exception.courseTakingException.CourseTakingException;
+import shared.Entity;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Student {
+public class Student implements Entity<Student> {
     private ArrayList<AcademicRecord> finishedAcademicRecords;
     private AcademicRecord currentAcademicRecord;
     private Term firstTerm;
@@ -54,10 +55,19 @@ public class Student {
         return lastTermAcademicRecord.getGpa();
     }
 
+    public String getId(){
+        return this.personalInfo.getId();
+    }
+
     @Override
     public boolean equals(Object other){
         if (!(other instanceof Student))
             return false;
         return this.personalInfo.sameIdentityAs((((Student) other).personalInfo));
+    }
+
+    @Override
+    public boolean sameIdentityAs(Student other) {
+        return this.personalInfo.sameIdentityAs(other.personalInfo);
     }
 }

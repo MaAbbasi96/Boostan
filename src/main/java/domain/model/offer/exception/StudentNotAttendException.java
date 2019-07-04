@@ -1,4 +1,4 @@
-package domain.model.course.exception;
+package domain.model.offer.exception;
 
 public class StudentNotAttendException extends Exception {
 }

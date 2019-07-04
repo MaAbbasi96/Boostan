@@ -1,4 +1,4 @@
-package domain.model.course.prerequisite;
+package domain.model.educationChart.prerequisite;
 
 import domain.model.course.Course;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package domain.model.course;
+package domain.model.offer;
 
 import domain.model.common.Name;
 import domain.model.common.PersonalInfo;

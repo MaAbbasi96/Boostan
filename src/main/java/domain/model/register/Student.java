@@ -4,7 +4,7 @@ import domain.model.common.Name;
 import domain.model.common.PersonalInfo;
 import domain.model.common.Term;
 import domain.model.course.Course;
-import domain.model.course.CourseOffering;
+import domain.model.offer.CourseOffering;
 import domain.model.course.exception.ClassCapacityFullException;
 import domain.model.register.exception.NotDeleteStudentCourseException;
 import domain.model.register.exception.courseTakingException.CourseTakingException;

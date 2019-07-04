@@ -1,7 +1,7 @@
 package domain.model.register;
 
 import domain.model.course.Course;
-import domain.model.course.CourseOffering;
+import domain.model.offer.CourseOffering;
 import domain.model.register.exception.*;
 import domain.model.register.exception.courseTakingException.ConflictClassTimeException;
 import domain.model.register.exception.courseTakingException.ConflictExamTimeException;

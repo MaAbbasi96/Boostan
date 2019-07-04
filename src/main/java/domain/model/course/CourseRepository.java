@@ -2,6 +2,8 @@ package domain.model.course;
 
 import domain.model.common.Term;
 import domain.model.common.DataNotExistInDatabase;
+import domain.model.offer.CourseOffering;
+import domain.model.offer.Teacher;
 
 import java.util.ArrayList;
 

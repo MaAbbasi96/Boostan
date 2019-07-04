@@ -2,57 +2,57 @@ package domain.model.register;
 
 import domain.model.common.Term;
 import domain.model.course.Course;
-import domain.model.course.CourseOffering;
-import domain.model.course.exception.ClassCapacityFullException;
+import domain.model.offer.CourseOffering;
+import domain.model.offer.exception.ClassCapacityFullException;
 import domain.model.register.exception.*;
 import domain.model.register.exception.courseTakingException.*;
 import shared.Entity;
 
 import java.util.ArrayList;
 
-public class Registration implements Entity<Registration> {
-    private ArrayList<ReceivedCourse> receivedCourses;
+public class AcademicRecord implements Entity<AcademicRecord> {
+    private ArrayList<EnrolledCourse> enrolledCourses;
     private Term term;
 
-    public Registration(Term term) {
-        this.receivedCourses = new ArrayList<>();
+    public AcademicRecord(Term term) {
+        this.enrolledCourses = new ArrayList<>();
         this.term = term;
     }
 
-    public boolean sameIdentityAs(Registration other) {
+    public boolean sameIdentityAs(AcademicRecord other) {
         return false; // todo: implement if needed
     }
 
     public ArrayList<Course> getPassedAndTakenCourses() {
         ArrayList<Course> passedReceivedCourses = new ArrayList<>();
-        for(ReceivedCourse receivedCourse: this.receivedCourses)
-            if(receivedCourse.isPassed() || receivedCourse.isTaken())
-                passedReceivedCourses.add(receivedCourse.getCourse());
+        for(EnrolledCourse enrolledCourse : this.enrolledCourses)
+            if(enrolledCourse.isPassed() || enrolledCourse.isTaken())
+                passedReceivedCourses.add(enrolledCourse.getCourse());
         return passedReceivedCourses;
     }
 
     public void receiveCourse(CourseOffering courseOffering) {
-        receivedCourses.add(new ReceivedCourse(courseOffering));
+        enrolledCourses.add(new EnrolledCourse(courseOffering));
     }
 
     public void deleteCourse(CourseOffering courseOffering) throws NotDeleteStudentCourseException {
         if (getCurrentNumberOfUnits() < 12)
             throw new NumberOfUnitsBelowMinimumException();
-        this.receivedCourses.remove(findReceivedCourse(courseOffering));
+        this.enrolledCourses.remove(findReceivedCourse(courseOffering));
     }
 
     private int findReceivedCourse(CourseOffering courseOffering)
             throws CourseNotTakenException {
-        for (int i = 0; i < this.receivedCourses.size(); i++)
-            if (this.receivedCourses.get(i).getCourseOffering().sameIdentityAs(courseOffering))
+        for (int i = 0; i < this.enrolledCourses.size(); i++)
+            if (this.enrolledCourses.get(i).getCourseOffering().sameIdentityAs(courseOffering))
                 return i;
         throw new CourseNotTakenException();
     }
 
     private float getCurrentNumberOfUnits() {
         float numberOfUnit = 0;
-        for (ReceivedCourse receivedCourse: this.receivedCourses)
-            numberOfUnit += receivedCourse.getTotalNumberOfUnits();
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
+            numberOfUnit += enrolledCourse.getTotalNumberOfUnits();
         return numberOfUnit;
     }
 
@@ -71,7 +71,7 @@ public class Registration implements Entity<Registration> {
     private void validateInternshipConflict(CourseOffering courseOffering)
             throws InternshipTakenWithOtherCoursesException {
         if (this.getNumOfUnits() > 0 && courseOffering.getCourseName().equals("internship")
-            || this.receivedCourses.get(0).getCourseName().equals("internship"))
+            || this.enrolledCourses.get(0).getCourseName().equals("internship"))
             throw new InternshipTakenWithOtherCoursesException();
     }
 
@@ -94,34 +94,34 @@ public class Registration implements Entity<Registration> {
 
     private void validateDuplicateCourse(CourseOffering courseOffering)
             throws DuplicateOfferingCourseTakenException {
-        for (ReceivedCourse receivedCourse: this.receivedCourses)
-            receivedCourse.validateDuplicateOfferingCourse(courseOffering);
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
+            enrolledCourse.validateDuplicateOfferingCourse(courseOffering);
     }
 
     private void validateClassTimeConflict(CourseOffering courseOffering)
             throws ConflictClassTimeException {
-        for (ReceivedCourse receivedCourse: this.receivedCourses)
-            receivedCourse.validateClassTimeConflict(courseOffering);
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
+            enrolledCourse.validateClassTimeConflict(courseOffering);
     }
 
     private void validateExamTimeConflict(CourseOffering courseOffering)
             throws ConflictExamTimeException {
-        for (ReceivedCourse receivedCourse: this.receivedCourses)
-            receivedCourse.validateExamTimeConflict(courseOffering);
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
+            enrolledCourse.validateExamTimeConflict(courseOffering);
     }
 
     private float getNumOfUnits() {
         float numOfUnits = 0;
-        for (ReceivedCourse receivedCourse: this.receivedCourses)
-            numOfUnits += receivedCourse.getTotalNumberOfUnits();
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
+            numOfUnits += enrolledCourse.getTotalNumberOfUnits();
         return numOfUnits;
     }
 
     private float getSumOfScores() {
         float sumOfScores = 0;
-        for (ReceivedCourse receivedCourse: this.receivedCourses) {
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses) {
             try {
-                sumOfScores += receivedCourse.getScore();
+                sumOfScores += enrolledCourse.getScore();
             } catch (NotGradedCourseException e) {
                 System.out.println("This course not graded.");
             }

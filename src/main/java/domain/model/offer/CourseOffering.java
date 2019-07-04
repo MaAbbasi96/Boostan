@@ -1,9 +1,10 @@
-package domain.model.course;
+package domain.model.offer;
 
 import domain.model.common.Term;
-import domain.model.course.exception.ClassCapacityFullException;
-import domain.model.course.exception.StudentNotAttendException;
-import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
+import domain.model.course.Course;
+import domain.model.offer.exception.ClassCapacityFullException;
+import domain.model.offer.exception.StudentNotAttendException;
+import domain.model.educationChart.prerequisite.exception.PrerequisiteNotSatisfiedException;
 import domain.model.register.Student;
 import shared.Entity;
 

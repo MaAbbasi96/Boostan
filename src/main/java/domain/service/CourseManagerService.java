@@ -1,10 +1,10 @@
 package domain.service;
 
 import domain.model.course.Course;
-import domain.model.course.CourseOffering;
-import domain.model.course.exception.ClassCapacityFullException;
-import domain.model.course.exception.StudentNotAttendException;
-import domain.model.course.prerequisite.exception.PrerequisiteNotSatisfiedException;
+import domain.model.educationChart.prerequisite.exception.PrerequisiteNotSatisfiedException;
+import domain.model.offer.CourseOffering;
+import domain.model.offer.exception.ClassCapacityFullException;
+import domain.model.offer.exception.StudentNotAttendException;
 import domain.model.register.Student;
 import domain.model.register.exception.NotDeleteStudentCourseException;
 import domain.model.register.exception.courseTakingException.CourseTakingException;

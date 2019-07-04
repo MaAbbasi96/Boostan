@@ -1,7 +1,7 @@
 package domain.model.register;
 
 import domain.model.course.Course;
-import domain.model.course.CourseOffering;
+import domain.model.offer.CourseOffering;
 import domain.model.register.exception.*;
 import domain.model.register.exception.courseTakingException.ConflictClassTimeException;
 import domain.model.register.exception.courseTakingException.ConflictExamTimeException;
@@ -15,13 +15,13 @@ import java.util.Date;
 
 import static domain.model.utility.Utility.timeHasConflict;
 
-public class ReceivedCourse implements ValueObject<ReceivedCourse> {
+public class EnrolledCourse implements ValueObject<EnrolledCourse> {
     enum CourseState {REJECTED, PASSED, TAKEN, DELETED}
     private CourseOffering courseOffering;
     private CourseState state;
     private float score;
 
-    public ReceivedCourse(CourseOffering course) {
+    public EnrolledCourse(CourseOffering course) {
         this.courseOffering = course;
         this.state = CourseState.TAKEN;
     }
@@ -38,7 +38,7 @@ public class ReceivedCourse implements ValueObject<ReceivedCourse> {
         this.score = score;
     }
 
-    public boolean sameValueAs(ReceivedCourse other) {
+    public boolean sameValueAs(EnrolledCourse other) {
         return this.courseOffering.sameIdentityAs(other.courseOffering) && this.state.equals(other.state);
     }
 

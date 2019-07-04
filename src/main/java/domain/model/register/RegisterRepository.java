@@ -13,8 +13,8 @@ public class RegisterRepository {
     }
 
     private ArrayList<Student> students = new ArrayList<>();
-    private ArrayList<Registration> registrations = new ArrayList<>();
-    private ArrayList<ReceivedCourse> receivedCourses = new ArrayList<>();
+    private ArrayList<AcademicRecord> academicRecords = new ArrayList<>();
+    private ArrayList<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
     public Student findStudent(String id) throws DataNotExistInDatabase {
         for (Student student: this.students)
@@ -23,22 +23,22 @@ public class RegisterRepository {
         throw new DataNotExistInDatabase();
     }
 
-    public Registration findRegistration(Term term) throws DataNotExistInDatabase {
-        for (Registration registration: this.registrations)
-            if (registration.getTerm().sameValueAs(term))
-                return registration;
+    public AcademicRecord findRegistration(Term term) throws DataNotExistInDatabase {
+        for (AcademicRecord academicRecord : this.academicRecords)
+            if (academicRecord.getTerm().sameValueAs(term))
+                return academicRecord;
         throw new DataNotExistInDatabase();
     }
 
-    public ReceivedCourse findReceivedCourse(Course course) throws DataNotExistInDatabase {
-        for (ReceivedCourse receivedCourse: this.receivedCourses)
-            if (receivedCourse.getCourse().sameValueAs(course))
-                return receivedCourse;
+    public EnrolledCourse findReceivedCourse(Course course) throws DataNotExistInDatabase {
+        for (EnrolledCourse enrolledCourse : this.enrolledCourses)
+            if (enrolledCourse.getCourse().sameValueAs(course))
+                return enrolledCourse;
         throw new DataNotExistInDatabase();
     }
 
-    public void insertReceivedCourse(ReceivedCourse receivedCourse){
-        this.receivedCourses.add(receivedCourse);
+    public void insertReceivedCourse(EnrolledCourse enrolledCourse){
+        this.enrolledCourses.add(enrolledCourse);
     }
 
 }
